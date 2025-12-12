@@ -38,7 +38,7 @@ public class QuotesController {
         // TODO: Call QuotesService to fetch latest OHLCV candle from data source
         // TODO: Return QuoteResponse with OHLCV data
 
-        log.info("GET /api/v1/quotes/{} → Returning latest OHLCV candle", symbol);
+        log.info("GET /api/v1/quotes/{} -> Returning latest OHLCV candle", symbol);
         return ResponseEntity.ok().build(); // Placeholder - will return QuoteResponse
     }
 
@@ -62,7 +62,7 @@ public class QuotesController {
         // TODO: Call QuotesService to fetch historical data from data source
         // TODO: Return List<QuoteResponse> with historical OHLCV data
 
-        log.info("GET /api/v1/quotes/{}/history → Returning historical data from {} to {}", symbol, from, to);
+        log.info("GET /api/v1/quotes/{}/history -> Returning historical data from {} to {}", symbol, from, to);
         return ResponseEntity.ok().build(); // Placeholder - will return List<QuoteResponse>
     }
 
@@ -89,7 +89,7 @@ public class QuotesController {
         // TODO: Aggregate results from gRPC calls
         // TODO: Return AnalysisResponse with composite signal and indicator values
 
-        log.info("POST /api/v1/analysis/{} → Returning analysis results", symbol);
+        log.info("POST /api/v1/analysis/{} -> Returning analysis results", symbol);
         return ResponseEntity.ok().build(); // Placeholder - will return AnalysisResponse
     }
 }
