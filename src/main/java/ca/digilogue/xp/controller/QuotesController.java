@@ -1,7 +1,10 @@
 package ca.digilogue.xp.controller;
 
+import ca.digilogue.xp.model.QuoteResponse;
+import ca.digilogue.xp.service.QuotesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,26 +23,31 @@ public class QuotesController {
 
     private static final Logger log = LoggerFactory.getLogger(QuotesController.class);
 
-    public QuotesController() {
-        // TODO: Inject QuotesService when implemented
+    private final QuotesService quotesService;
+
+    public QuotesController(QuotesService quotesService) {
+        this.quotesService = quotesService;
     }
 
     /**
      * Get the latest OHLCV (Open, High, Low, Close, Volume) candle for a symbol.
      * 
-     * @param symbol The trading symbol (e.g., "AAPL", "BTC/USD")
+     * @param symbol The trading symbol (e.g., "AAPL", "BTC/USD", "MEGA/USD")
      * @return Latest OHLCV candle data
      */
     @GetMapping("/quotes/{symbol}")
-    public ResponseEntity<?> getLatestQuote(@PathVariable String symbol) {
+    public ResponseEntity<QuoteResponse> getLatestQuote(@PathVariable String symbol) {
         log.info("Received GET /api/v1/quotes/{}", symbol);
 
-        // TODO: Validate symbol format
-        // TODO: Call QuotesService to fetch latest OHLCV candle from data source
-        // TODO: Return QuoteResponse with OHLCV data
+        QuoteResponse quote = quotesService.getLatestQuote(symbol);
+        
+        if (quote == null) {
+            log.warn("Quote not found for symbol: {}", symbol);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
 
         log.info("GET /api/v1/quotes/{} -> Returning latest OHLCV candle", symbol);
-        return ResponseEntity.ok().build(); // Placeholder - will return QuoteResponse
+        return ResponseEntity.ok(quote);
     }
 
     /**
