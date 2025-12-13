@@ -114,7 +114,7 @@ public class LiveCandlesStreamService {
                                 // Update the static collection in App
                                 App.updateLiveCandles(candles);
                                 
-                                log.info("Received and updated {} live candles", candles.size());
+                                log.debug("Received and updated {} live candles", candles.size());
                                 
                             } catch (Exception e) {
                                 log.error("Error processing stream response", e);
