@@ -11,14 +11,14 @@
 
   <groupId>ca.digilogue.xp</groupId>
   <artifactId>xp-quotes-service</artifactId>
-  <version>0.0.5</version>
+  <version>0.0.6-SNAPSHOT</version>
   <name>xp-quotes-service</name>
   <description>XP Quotes Spring Boot microservice</description>
 
   <scm>
     <connection>scm:git:https://github.com/gar2000b/xp-quotes-service.git</connection>
     <developerConnection>scm:git:https://github.com/gar2000b/xp-quotes-service.git</developerConnection>
-    <tag>v0.0.5</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <packaging>jar</packaging>
