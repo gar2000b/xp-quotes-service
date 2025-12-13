@@ -1,5 +1,6 @@
 package ca.digilogue.xp.controller;
 
+import ca.digilogue.xp.App;
 import ca.digilogue.xp.model.QuoteResponse;
 import ca.digilogue.xp.service.QuotesService;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class QuotesController {
     /**
      * Get the latest OHLCV (Open, High, Low, Close, Volume) candle for a symbol.
      * 
-     * @param symbol The trading symbol (e.g., "AAPL", "BTC/USD", "MEGA/USD")
+     * @param symbol The trading symbol (e.g., "AAPL", "BTC-USD", "MEGA-USD")
      * @return Latest OHLCV candle data
      */
     @GetMapping("/quotes/{symbol}")
@@ -47,6 +48,29 @@ public class QuotesController {
         }
 
         log.info("GET /api/v1/quotes/{} -> Returning latest OHLCV candle", symbol);
+        return ResponseEntity.ok(quote);
+    }
+
+    /**
+     * Get the live/real-time OHLCV (Open, High, Low, Close, Volume) candle for a symbol.
+     * Retrieves the current live candle from the streaming collection.
+     * 
+     * @param symbol The trading symbol (e.g., "AAPL", "BTC-USD", "MEGA-USD")
+     * @return Live OHLCV candle data
+     */
+    @GetMapping("/quotes/{symbol}/live")
+    public ResponseEntity<QuoteResponse> getLiveQuote(@PathVariable String symbol) {
+        log.info("Received GET /api/v1/quotes/{}/live", symbol);
+
+        // Look up the live candle from the static collection in App
+        QuoteResponse quote = App.getLiveCandle(symbol);
+        
+        if (quote == null) {
+            log.warn("Live candle not found for symbol: {}", symbol);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        log.info("GET /api/v1/quotes/{}/live -> Returning live OHLCV candle", symbol);
         return ResponseEntity.ok(quote);
     }
 

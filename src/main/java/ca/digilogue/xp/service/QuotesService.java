@@ -28,7 +28,7 @@ public class QuotesService {
     /**
      * Gets the latest OHLCV candle for a given symbol.
      * 
-     * @param symbol The trading symbol (e.g., "MEGA/USD", "AAPL")
+     * @param symbol The trading symbol (e.g., "MEGA-USD", "AAPL")
      * @return QuoteResponse with OHLCV data, or null if not found
      */
     public QuoteResponse getLatestQuote(String symbol) {

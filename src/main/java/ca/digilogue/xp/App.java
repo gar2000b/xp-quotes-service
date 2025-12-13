@@ -1,5 +1,6 @@
 package ca.digilogue.xp;
 
+import ca.digilogue.xp.model.QuoteResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @SpringBootApplication
 public class App {
@@ -18,6 +21,13 @@ public class App {
     public static String version;
 
     private static final Logger log = LoggerFactory.getLogger(App.class);
+
+    /**
+     * Static collection to maintain current live candles from all generators.
+     * Key: symbol (e.g., "MEGA-USD"), Value: latest QuoteResponse
+     * Updated every second from the gRPC stream.
+     */
+    private static final Map<String, QuoteResponse> liveCandles = new ConcurrentHashMap<>();
 
     public static void main(String[] args) {
         ConfigurableApplicationContext ctx = SpringApplication.run(App.class, args);
@@ -72,5 +82,36 @@ public class App {
 
         // Last-resort fallback for local dev
         return "DEV";
+    }
+
+    /**
+     * Gets the current live candle for a specific symbol.
+     * 
+     * @param symbol The trading symbol (e.g., "MEGA-USD")
+     * @return The latest QuoteResponse for the symbol, or null if not available
+     */
+    public static QuoteResponse getLiveCandle(String symbol) {
+        return liveCandles.get(symbol);
+    }
+
+    /**
+     * Gets all current live candles.
+     * 
+     * @return A copy of the live candles map (to prevent external modification)
+     */
+    public static Map<String, QuoteResponse> getAllLiveCandles() {
+        return new ConcurrentHashMap<>(liveCandles);
+    }
+
+    /**
+     * Updates the live candles collection with new data from the stream.
+     * This method is called by the stream consumer when new data arrives.
+     * 
+     * @param candles Map of symbol to QuoteResponse
+     */
+    public static void updateLiveCandles(Map<String, QuoteResponse> candles) {
+        liveCandles.clear();
+        liveCandles.putAll(candles);
+        log.debug("Updated live candles collection with {} symbols", candles.size());
     }
 }

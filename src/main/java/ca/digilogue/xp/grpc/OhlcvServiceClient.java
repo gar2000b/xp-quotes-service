@@ -25,7 +25,7 @@ public class OhlcvServiceClient {
     /**
      * Gets the latest OHLCV candle for a given symbol.
      * 
-     * @param symbol The trading symbol (e.g., "MEGA/USD")
+     * @param symbol The trading symbol (e.g., "MEGA-USD")
      * @return The latest OHLCV candle data, or null if not found or error occurs
      */
     public OhlcvCandleResponse getLatestCandle(String symbol) {
