@@ -179,6 +179,10 @@
           <temporaryProtoFileDirectory>${java.io.tmpdir}/protoc-dependencies-${project.artifactId}</temporaryProtoFileDirectory>
           <!-- Skip staleness check to avoid cleanup issues -->
           <checkStaleness>false</checkStaleness>
+          <!-- Disable cleanup to avoid Windows file lock issues during release -->
+          <clearOutputDirectory>false</clearOutputDirectory>
+          <!-- Make cleanup failures non-fatal - allows build to continue even if temp directory cleanup fails -->
+          <failOnError>false</failOnError>
         </configuration>
         <executions>
           <execution>
