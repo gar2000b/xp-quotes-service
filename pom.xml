@@ -11,7 +11,7 @@
 
   <groupId>ca.digilogue.xp</groupId>
   <artifactId>xp-quotes-service</artifactId>
-  <version>0.0.14-SNAPSHOT</version>
+  <version>0.0.15-SNAPSHOT</version>
   <name>xp-quotes-service</name>
   <description>XP Quotes Spring Boot microservice</description>
 
