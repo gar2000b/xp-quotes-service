@@ -1,9 +1,10 @@
-package ca.digilogue.xp.grpc;
+package ca.digilogue.xp.grpc.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import ca.digilogue.xp.grpc.OhlcvServiceGrpc;
 import ca.digilogue.xp.grpc.OhlcvServiceProto.GetLatestCandleRequest;
 import ca.digilogue.xp.grpc.OhlcvServiceProto.OhlcvCandleResponse;
 import io.grpc.Status;

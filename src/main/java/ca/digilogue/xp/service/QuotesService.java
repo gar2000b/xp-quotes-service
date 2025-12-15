@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import ca.digilogue.xp.grpc.OhlcvServiceClient;
 import ca.digilogue.xp.grpc.OhlcvServiceProto.OhlcvCandleResponse;
+import ca.digilogue.xp.grpc.impl.OhlcvServiceClient;
 import ca.digilogue.xp.model.QuoteResponse;
 
 /**
