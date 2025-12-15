@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Remove target directory (protoc-dependencies should be gone now, or will be skipped)
-rm -rf target
+# Remove target directory - try multiple times with delays for Windows file locks
+echo "Removing target directory..."
+rm -rf target 2>/dev/null || true
+sleep 1
+rm -rf target 2>/dev/null || true
+sleep 1
+rm -rf target 2>/dev/null || true
 
-# Small delay on Windows to allow file handles to release
-echo "Waiting 2 seconds for file handles to release..."
-sleep 2
+# Wait longer for Windows to fully release file handles before Maven runs
+# Maven's clean goal will also try to delete target, so handles must be released
+echo "Waiting 5 seconds for file handles to fully release..."
+sleep 5
 
 mvn -B release:prepare release:perform && git push && git pull
