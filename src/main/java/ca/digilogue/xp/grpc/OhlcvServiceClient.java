@@ -11,7 +11,7 @@ import io.grpc.StatusRuntimeException;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 
 /**
- * gRPC client for communicating with the OHLCV Generator Service.
+ * gRPC client for communicating with the XP Market Data Service.
  * Handles calls to get latest OHLCV candle data.
  */
 @Service
