@@ -30,7 +30,7 @@ public class LiveCandlesStreamService {
     private static final Logger log = LoggerFactory.getLogger(LiveCandlesStreamService.class);
     private static final long RECONNECT_DELAY_SECONDS = 5;
 
-    @GrpcClient("ohlcv-generator-service")
+    @GrpcClient("xp-marketdata-service")
     private OhlcvServiceGrpc.OhlcvServiceStub ohlcvServiceStub;
 
     private volatile boolean running = false;

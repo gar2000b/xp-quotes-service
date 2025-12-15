@@ -19,7 +19,7 @@ public class OhlcvServiceClient {
 
     private static final Logger log = LoggerFactory.getLogger(OhlcvServiceClient.class);
 
-    @GrpcClient("ohlcv-generator-service")
+    @GrpcClient("xp-marketdata-service")
     private OhlcvServiceGrpc.OhlcvServiceBlockingStub ohlcvServiceStub;
 
     /**
